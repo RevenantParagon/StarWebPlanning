@@ -5,8 +5,11 @@ use projeto;
 create table tb_usuario
 (
 usrId int not null primary key auto_increment,
-usrLogin varchar(20) not null,
-usrSenha varchar(64) not null
+usrLogin char(6) not null,
+usrSenha char(64) not null,
+usrNome varchar(50) not null,
+usrEmail varchar(50) not null,
+usrChave varchar(64)
 );
 
 create table tb_IP
@@ -23,4 +26,4 @@ create table tb_campus
 camID int not null primary key auto_increment
 );
 
-insert into TB_usuario values('1','test','test');
+insert into TB_usuario values('1','admin','d31a0cf48f2be3876b95d3aee8ff90f0ce3045d44386447563f48d57dfb7ed59','Admin','starwebplanning@gmail.com',NULL);
