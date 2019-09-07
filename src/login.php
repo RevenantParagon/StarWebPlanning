@@ -6,11 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Login</title>
-    <!-- Icons-->
-    <link href="node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
-    <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <!-- Main styles for this application-->
     <link href="css/style.css" rel="stylesheet">
     <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
@@ -33,7 +28,7 @@
     <?php include("primeiro_acesso.php");?>
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-4">
           <div class="card-group">
             <div class="card p-4">
               <div class="card-body">
@@ -67,15 +62,14 @@
               </form>
             </div>  
             </div>
-            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+            <!-- <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
               <div class="card-body text-center">
                 <div>
                   <h2>Sign up</h2>
-                  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
                   <button class="btn btn-primary active mt-3" type="button">Register Now!</button>
                 </div>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>

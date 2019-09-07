@@ -1,7 +1,62 @@
 <?php
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
+   
   require_once('conexao.php');
+  require './phpmailer/Exception.php';
+  require './phpmailer/PHPMailer.php';
+  require './phpmailer/SMTP.php';
+   
+  header('Content-Type: text/html; charset=UTF-8');
+  
+  if(!empty($_POST['email'])){
+ 
+    $user = mysqli_real_escape_string($connect,$_POST['email']);
+    $q = mysqli_query($connect, "SELECT usrId FROM tb_usuario WHERE usrEmail = '$user'");   
+ 
+    if(mysqli_num_rows($q) == 1 ){
+      while($row=mysqli_fetch_array($q))
+      {
+        $chave = sha1(uniqid(mt_rand(), true));
 
-  use master\src\PHPMailer;
+        $conf = mysqli_query($connect, "UPDATE tb_usuario set usrChave = '$chave' where usrId='".$row['usrId']."'");
+  
+        if($conf == 1)
+        {
+          $mail = new PHPMailer;          
+          
+          $mail->isSMTP();
+          $mail->SMTPDebug = 0;
+          $mail->Host = 'smtp.gmail.com';
+          $mail->Port = 465;
+          $mail->SMTPSecure = 'ssl';
+          $mail->SMTPAuth = true;
+          $mail->Username = 'starwebplanning@gmail.com';
+          $mail->Password = 'astarium';
+          $mail->Charset = 'UTF-8';
+          $mail->setFrom('starwebplanning@gmail.com', 'ADMINISTRADOR');
+          $mail->addAddress($_POST['email'], 'Usuário');
+          $mail->isHTML(true);
+          $mail->Subject = '=?UTF-8?B?'.base64_encode("Recuperação de Senha").'?=';
+          $mail->Body = 'Olá, <p> <p>Atensiosamente,<p> ADMINISTRADOR';                  
+  
+          if ($mail->send()){
+            echo '<p>Foi enviado um e-mail para o seu endereço, onde poderá encontrar um link único para alterar a sua password</p>';  
+          } else {
+            echo '<p>Houve um erro ao enviar o email (o servidor suporta a função mail?)</p>'; 
+          }  
+        } else 
+        {
+          echo '<p>Não foi possível gerar o endereço único</p>'; 
+        }
+      }
+    } else {
+    echo '<p>Esse utilizador não existe</p>';
+    }  
+  }
+
+
+ /* use master\src\PHPMailer;
   use master\src\Exception;
 
   require '../vendor/autoload.php';
@@ -47,114 +102,7 @@ try {
     } else {
       echo "Não foi possível enviar o e-mail.";
     }
-} catch (Exception $e){}
-
-
-
-
-
-
-
-
-
-
-
-
-  /*# Inicia a classe PHPMailer
-  $mail = new PHPMailer();
-
-  # Define os dados do servidor e tipo de conexão
-  $mail->IsSMTP(); // Define que a mensagem será SMTP
-  $mail->Host = "smtp.gmail.com"; # Endereço do servidor SMTP
-  $mail->Port = 587; // Porta TCP para a conexão
-  $mail->SMTPAutoTLS = false; // Utiliza TLS Automaticamente se disponível
-  $mail->SMTPAuth = true; # Usar autenticação SMTP - Sim
-  $mail->Username = 'starwebplanning@gmail.com'; # Usuário de e-mail
-  $mail->Password = 'astarium'; // # Senha do usuário de e-mail
-
-  # Define o remetente (você)
-  $mail->From = 'starwebplanning@gmail.com'; # Seu e-mail
-  $mail->FromName = "Nome do Remetente"; // Seu nome
-
-  # Define os destinatário(s)
-  $mail->AddAddress('nathanwillian.costa@gmail.com', 'Teste'); # Os campos podem ser substituidos por variáveis
-  #$mail->AddAddress('webmaster@nomedoseudominio.com'); # Caso queira receber uma copia
-  #$mail->AddCC('ciclano@site.net', 'Ciclano'); # Copia
-  #$mail->AddBCC('fulano@dominio.com.br', 'Fulano da Silva'); # Cópia Oculta
-
-  # Define os dados técnicos da Mensagem
-  $mail->IsHTML(true); # Define que o e-mail será enviado como HTML
-  #$mail->CharSet = 'iso-8859-1'; # Charset da mensagem (opcional)
-
-  # Define a mensagem (Texto e Assunto)
-  $mail->Subject = "Mensagem Teste"; # Assunto da mensagem
-  $mail->Body = "Este é o corpo da mensagem de teste, em <b>HTML</b>! :)";
-  $mail->AltBody = "Este é o corpo da mensagem de teste, somente Texto! \r\n :)";
-
-  # Define os anexos (opcional)
-  #$mail->AddAttachment("c:/temp/documento.pdf", "documento.pdf"); # Insere um anexo
-
-  # Envia o e-mail
-  $enviado = $mail->Send();
-
-  # Limpa os destinatários e os anexos
-  $mail->ClearAllRecipients();
-  $mail->ClearAttachments();
-
-  # Exibe uma mensagem de resultado (opcional)
-  if ($enviado) {
-    echo "E-mail enviado com sucesso!";
-  } else {
-    echo "Não foi possível enviar o e-mail.";
-    echo "<b>Informações do erro:</b> " . $mail->ErrorInfo;
-  }*/
-
-
-
-
-  /*if(!empty($_POST['email']) ){
- 
-    $user = mysqli_real_escape_string($connect,$_POST['email']);
-    $q = mysqli_query($connect, "SELECT usrId FROM tb_usuario WHERE usrEmail = '$user'");   
- 
-    if(mysqli_num_rows($q) == 1 ){
-      // o utilizador existe, vamos gerar um link único e enviá-lo para o e-mail
-      while($row=mysqli_fetch_array($q,MYSQL_ASSOC)
-      {
-        // gerar a chave
-        // exemplo adaptado de http://snipplr.com/view/20236/
-        $chave = sha1(uniqid(mt_rand(), true));
+} catch (Exception $e){}*/
   
-        // guardar este par de valores na tabela para confirmar mais tarde
-        $conf = mysqli_query($connect, "UPDATE tb_usuario set usrChave = '$chave' where usrId='$row[usrId]'");
-  
-        if( mysqli_num_rows($conf) > 0 )
-        {
-  
-          $link = "localhost/Pi/src/Troca_Senha.html?confirmacao=$chave";
-
-          
-  
-          /*if( mail($user, 'Recuperação de password', 'Olá '.$user.', visite este link '.$link) ){
-            echo '<p>Foi enviado um e-mail para o seu endereço, onde poderá encontrar um link único para alterar a sua password</p>';
-  
-          } else {
-            echo '<p>Houve um erro ao enviar o email (o servidor suporta a função mail?)</p>'; 
-          }
-  
-          // Apenas para testar o link, no caso do e-mail falhar
-          echo '<p>Link: '.$link.' (apresentado apenas para testes; nunca expor a público!)</p>';
-  
-        } else 
-        {
-          echo '<p>Não foi possível gerar o endereço único</p>'; 
-        }
-      }
-    } else {
-    echo '<p>Esse utilizador não existe</p>';
-    }  
-  }*/ 
-  //else {
-    // mostrar formulário de recuperação
 
 ?>
