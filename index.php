@@ -1,0 +1,1 @@
+<?php echo "<script language= 'JavaScript'>location.href='Chat.php'</script>";?>
