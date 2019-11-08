@@ -1,1 +1,1 @@
-<?php echo "<script language= 'JavaScript'>location.href='Chat.php'</script>";?>
+<?php echo "<script language= 'JavaScript'>location.href='src/login.php'</script>";?>
