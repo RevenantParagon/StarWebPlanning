@@ -102,7 +102,7 @@ create table tb_porta_porta
 porId int not null,
 foreign key (porId) references tb_porta(porId),
 porIdVinculada int not null,
-foreign key (porId) references tb_porta(porId)
+foreign key (porIdVinculada) references tb_porta(porId)
 ) engine = InnoDB;
  
 create table tb_porta_vlan
