@@ -14,10 +14,11 @@ function buscarCampus($connect, $pdo)
             echo "<tr><td>" . $row['ID'] . "</td>
                 <td>" . $row['Campus'] . "</td>
                 <td>" . $row['Sigla'] . "</td>
-                <td align='center'><a href='../src/campus.php?funcao=1&id=". $row['ID']."'><i class='fas fa-edit'></i></a></td>";  
+                <td align='center'><a href='../src/campus.php?funcao=editar&id=". $row['ID']."'><i class='fas fa-edit'></i></a></td>";  
             if($_SESSION['tipo'] == 1)
-                echo "<td align='center'><a href='../back/campus_back.php?tipo=deletar&id=". $row['ID']."'><i class='fas fa-trash-alt'></i></a></td>";
-                echo "<td align='center'><a href='../src/ip.php?campus=".$row['ID']."'><i class='fas fa-network-wired'></i></a>   <a href='../src/visualiza_vlan.php?Id=".$row['ID']."'><i class='fas fa-ethernet'></i></a></td></tr>";
+                echo "<td align='center'><a href='../back/campus_back.php?funcao=deletar&id=". $row['ID']."'><i class='fas fa-trash-alt'></i></a></td>";
+                echo "<td align='center'><a href='../src/ip.php?campus=".$row['ID']."'><i class='fas fa-network-wired'></i></a>   <a href='../src/visualiza_vlan.php?campus=".$row['ID']."'><i class='fas fa-ethernet'></i></a>   <a href='../src/visualiza_ativo.php?campus=".$row['ID']."'><i class='fas fa-wifi'></i></a></td>";
+                
                 //<td align='center'><a href='#' onclick='javascript: if (confirm('Você realmente deseja excluir esta mensagem?'))location.href='../back/users_back.php?tipo=deletar&id=". $row['ID']."''
         }
     }

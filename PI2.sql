@@ -27,7 +27,7 @@ usrTipo char(1) not null
 create table tb_provedor
 (
 proId int not null primary key auto_increment,
-proNome varchar(50) not null primary key,
+proNome varchar(50) not null,
 proIP varchar(15) not null,
 proMascara char(2) not null,
 camId int not null,
@@ -55,6 +55,61 @@ vlanCor char(7) not null,
 camId int not null,
 foreign key (camId) references tb_campus(camId)
 )  engine = InnoDB;
+
+create table tb_equipamento
+(
+equId int not null primary key auto_increment,
+equMarca varchar(30) not null,
+equModelo varchar(30) not null,
+equTipo char(1) not null,
+equQtdePorta int not null,
+equLado char(1) not null,
+equOrdem char(1) not null,
+equDirecao char(1) not null,
+equLinha int(1) not null
+ ) engine = InnoDB;
+ 
+create table tb_ativo
+(
+atiId int not null primary key auto_increment,
+atiLocal varchar(30) not null,
+atiIP varchar(15),
+atiNome varchar(50) not null,
+atiUsuario varchar(30) not null,
+atiSenha varchar(10) not null,
+equId int not null,
+foreign key (equId) references tb_equipamento(equId),
+camId int not null,
+foreign key (camId) references tb_campus(camId)
+ ) engine = InnoDB; 
+ 
+create table tb_porta
+(
+porId int not null primary key auto_increment,
+porNumero int(2),
+porTipo int(1) default 0,
+atiId int not null,
+foreign key (atiId) references tb_ativo(atiId),
+proId int,
+foreign key (proId) references tb_provedor(proId),
+porObs varchar(50)
+)engine = InnoDB;
+
+create table tb_porta_porta
+(
+porId int not null,
+foreign key (porId) references tb_porta(porId),
+porIdVinculada int not null,
+foreign key (porId) references tb_porta(porId)
+) engine = InnoDB;
+ 
+create table tb_porta_vlan
+(
+porId int not null,
+foreign key (porId) references tb_porta(porId),
+vlanId int not null,
+foreign key (vlanId) references tb_vlan(vlanId)
+)engine = InnoDB; 
 
 insert into tb_campus values(1,'ARQ','Araraquara','');
 insert into tb_campus values(2,'AVR','Avaré','');
@@ -93,4 +148,4 @@ insert into tb_campus values(34,'SZN','Suzano','');
 insert into tb_campus values(35,'TUP','Tupã','');
 insert into tb_campus values(36,'VTP','Votuporanga','');
 
-INSERT INTO `projeto`.`tb_usuario` (`usrId`, `usrLogin`, `usrSenha`, `usrNome`, `usrEmail`, `camId`, `usrTipo`) VALUES ('1', 'ba123456', '347707ccf0669ac3ac665db76a3235557e53b755f53225b6d5645033362685b5', 'Tiago', 'tiago@ifsp.edu.br', '3', '1');
+INSERT INTO `projeto`.`tb_usuario` (`usrId`, `usrLogin`, `usrSenha`, `usrNome`, `usrEmail`, `camId`, `usrTipo`) VALUES ('1', 'BA123456', '61f5be3abcd59d2d49ef1ab47bad53e227d594a60befbe6edcd260e16ae70111', 'Tiago', 'tiago@ifsp.edu.br', '3', '1');

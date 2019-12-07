@@ -19,7 +19,7 @@ function buscarIP($connect, $pdo, $id_provedor, $mascara)
                 echo "<tr><td>" . $row['IP'] . "/" . $mascara . "</td>";
                 echo "<td>" . $ip->mascara() . "</td>";
                 echo "<td>" . $primeiro . "</td>";
-                echo "<td>" . $row['Uso'] . "</td></tr>";
+                echo "<td> " . $row['Uso'] . " </td></tr>";
             }  
         }
     }

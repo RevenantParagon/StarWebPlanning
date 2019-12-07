@@ -38,21 +38,19 @@
     if (!isset($_SESSION["id"])) {
         echo "<script>window.location.href='./login.php';</script>";
     }
-    if ($_SESSION["tipo"] != 1 && $_GET["campus"] != $_SESSION["campus"])
-        echo "<script>window.location.href='./visualiza_vlan.php?campus=".$_SESSION["campus"]."';</script>";
-    telaInicial(); ?>
+    telaInicial();?>
+
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Visualizar Vlan</h1>
+                        <h1>Visualizar Equipamentos</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="index.php">Início</a></li>
-                            <li class="breadcrumb-item"><a href="visualiza_campus.php">Visualizar Campus</a></li>
-                            <li class="breadcrumb-item active">Visualizar Vlan</li>
+                            <li class="breadcrumb-item active">Visualizar Equipamentos</li>
                         </ol>
                     </div>
                 </div>
@@ -64,52 +62,47 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Vlan</h3>
-                            <div class="float-right">
-                                <form method="POST" action=<?php echo "./vlan.php?funcao=cadastrar&campus=" . $_GET['campus'] . ""; ?>>
-                                    <button type="submit" class="btn btn-primary">Inserir</button>
-                                </form>
-                            </div>
+                            <h3 class="card-title">Equipamentos</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th width="5%">ID</th>
-                                        <th width="10%">IP</th>
-                                        <th width="15%">Descrição</th>
-                                        <th width="10%">Máscara</th>
-                                        <th width="10%">Gateway</th>
-                                        <th width="5%">DHCP</th>
-                                        <th width="5%">Host</th>
-                                        <th width="10%">Range Início</th>
-                                        <th width="10%">Range Final</th>
-                                        <th width="5%">VPN</th>
-                                        <th width="5%">Cor</th>
+                                        <th width="0%">ID</th>
+                                        <th width="30%">Marca</th>
+                                        <th width="30%">Modelo</th>
+                                        <th width="25%">Tipo</th>                                        
+                                        <th width="5%">Nº Portas</th>
+                                        <?php
+                                        if($_SESSION['tipo'] == 1){
+                                        ?>
                                         <th width="5%"></th>
                                         <th width="5%"></th>
+                                        <?php
+                                        }
+                                        ?>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php require '../back/function/vlan_function.php';
-                                    buscarVlan($connect, $pdo, $_GET['campus']) ?>
+                                    <?php require '../back/function/equip_function.php'; 
+                                    buscarEquip($connect,$pdo); ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th width="5%">ID</th>
-                                        <th width="10%">IP</th>
-                                        <th width="15%">Descrição</th>
-                                        <th width="10%">Máscara</th>
-                                        <th width="10%">Gateway</th>
-                                        <th width="5%">DHCP</th>
-                                        <th width="5%">Host</th>
-                                        <th width="10%">Range Início</th>
-                                        <th width="10%">Range Final</th>
-                                        <th width="5%">VPN</th>
-                                        <th width="5%">Cor</th>
+                                    <th width="0%">ID</th>
+                                        <th width="30%">Marca</th>
+                                        <th width="30%">Modelo</th>
+                                        <th width="25%">Tipo</th>                                        
+                                        <th width="5%">Nº Portas</th>
+                                        <?php
+                                        if($_SESSION['tipo'] == 1){
+                                        ?>
                                         <th width="5%"></th>
                                         <th width="5%"></th>
+                                        <?php
+                                        }
+                                        ?>
                                     </tr>
                                 </tfoot>
                             </table>

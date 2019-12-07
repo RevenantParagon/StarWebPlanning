@@ -15,7 +15,7 @@ function buscarVlan($connect, $pdo, $id)
                 $dhcp = "SIM";
             else
                 $dhcp = "NÃO";
-            if($row['DHCP'] == 1)
+            if($row['VPN'] == 1)
                 $vpn = "SIM";
             else
                 $vpn = "NÃO";
@@ -50,10 +50,10 @@ function buscarVlan($connect, $pdo, $id)
                 <td>" . $vpn . "</td>
                 <td style='background-color: ".$row['Cor'] ."'>
                 <td align='center'>";
-                if($_SESSION['tipo'] == 1 || $row['camId'] == $_SESSION['campus'] )
-                    echo"<a href='../src/vlan.php?funcao=1&campus=" . $row['camId'] . "&id=" . $row['ID'] . "'><i class='fas fa-edit'></i></a>";
+                if(($_SESSION['tipo'] == 1 && $row['VPN'] == 1) || $_SESSION['tipo'] == 1 || ($row['camId'] == $_SESSION['campus'] && $row['VPN'] != 1) )
+                    echo"<a href='../src/vlan.php?funcao=editar&campus=" . $row['camId'] . "&id=" . $row['ID'] . "'><i class='fas fa-edit'></i></a>";
                 echo "</td><td align='center'>";
-                if($_SESSION['tipo'] == 1 || $row['camId'] == $_SESSION['campus'])
+                if(($_SESSION['tipo'] == 1 && $row['VPN'] == 1) || $_SESSION['tipo'] == 1 || ($row['camId'] == $_SESSION['campus'] && $row['VPN'] != 1) )
                     echo"<a href='../back/vlan_back.php?tipo=deletar&campus=" . $row['camId'] . "&id=".$row['ID'] ."'><i class='fas fa-trash-alt'></i></a>";                
                 echo "</td></tr>";                
         }

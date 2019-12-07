@@ -94,9 +94,9 @@
       <div class="container-fluid">
         <?php require '../back/function/users_function.php';
         if (!isset($_GET['funcao'])) {
-          $_GET['funcao'] = 0;
+          $_GET['funcao'] = 'cadastrar';
         }
-        if ($_GET['funcao'] == 0) { ?>
+        if ($_GET['funcao'] == 'cadastrar') { ?>
           <div class="row mb-2">
             <div class="col-sm-6">
               <h1>Cadastro de Usuário</h1>
@@ -109,7 +109,7 @@
             </div>
           </div>
           <div class="card card-primary">
-            <form method="POST" action="../back/users_back.php?tipo=cadastrar" onSubmit="return verificarInformacoes();" name="frmUsuario">
+            <form method="POST" action="../back/users_back.php?funcao=cadastrar" onSubmit="return verificarInformacoes();" name="frmUsuario">
               <div class="card-body">
                 <div class="form-group">
                   <label for="prontuario">Prontuário</label>
@@ -172,7 +172,7 @@
             </div>
           </div>
           <div class="card card-primary">
-            <form method="POST" action=<?php echo "../back/users_back.php?tipo=editar&id=" . $_GET['id'] . ""; ?> onSubmit="return verificarInformacoes();" name="frmUsuario">
+            <form method="POST" action=<?php echo "../back/users_back.php?funcao=editar&id=" . $_GET['id'] . ""; ?> onSubmit="return verificarInformacoes();" name="frmUsuario">
               <div class="card-body">
                 <div class="form-group">
                   <label for="prontuario">Prontuário</label>

@@ -6,8 +6,8 @@ if (!isset($_SESSION["id"])) {
 }
 
 if (!isset($_SESSION['tipo'])) {
-    if (isset($_GET['tipo'])) {
-        if ($_GET['tipo'] == "cadastrar") {
+    if (isset($_GET['funcao'])) {
+        if ($_GET['funcao'] == "cadastrar") {
             $sigla = strtoupper($_POST['sigla']);
             $campus = $_POST['campus'];
             $ip = $_POST['ip'];
@@ -23,7 +23,7 @@ if (!isset($_SESSION['tipo'])) {
             if ($stmt->rowcount() >= 1) {
                 echo "<script>
             alert('Já existe um campus com este nome!');window.location
-            .href='../src/campus.php?tipo=" . $_GET['tipo'] . "';</script>";
+            .href='../src/campus.php?funcao=" . $_GET['funcao'] . "';</script>";
                 die();
             }
 
@@ -40,21 +40,21 @@ if (!isset($_SESSION['tipo'])) {
 
                 if ($stmt->rowcount() > 0) {
                     echo "<script>alert('Campus inserido com sucesso');window.location
-            .href='../src/campus.php?tipo=" . $_GET['tipo'] . "';</script>";
+            .href='../src/campus.php?funcao=" . $_GET['funcao'] . "';</script>";
                     die();
                 } else {
                     echo "<script>
         alert('Houve um erro na inserção!');window.location
-        .href='../src/campus.php?tipo=" . $_GET['tipo'] . "';</script>";
+        .href='../src/campus.php?funcao=" . $_GET['funcao'] . "';</script>";
                     die();
                 }
             } else {
                 echo "<script>
     alert('Algum Campo está em branco!');window.location
-    .href='../src/campus.php?tipo=" . $_GET['tipo'] . "';</script>";
+    .href='../src/campus.php?funcao=" . $_GET['funcao'] . "';</script>";
                 die();
             }
-        } else if ($_GET['tipo'] == "editar") {
+        } else if ($_GET['funcao'] == "editar") {
             if (isset($_GET['id'])) {
 
                 $sigla = strtoupper($_POST['sigla']);
@@ -74,7 +74,7 @@ if (!isset($_SESSION['tipo'])) {
                 if ($stmt->rowcount() >= 1) {
                     echo "<script>
                 alert('Já existe um campus com este nome!');window.location
-                .href='../src/campus.php?tipo=" . $_GET['tipo'] . "&id=" . $_GET['id'] . "';</script>";
+                .href='../src/campus.php?funcao=" . $_GET['funcao'] . "&id=" . $_GET['id'] . "';</script>";
                     die();
                 }
 
@@ -98,17 +98,17 @@ if (!isset($_SESSION['tipo'])) {
                     } else {
                         echo "<script>
                     alert('Houve um erro na alteração!');window.location
-                    .href='../src/campus.php?tipo=" . $_GET['tipo'] . "&id=" . $_GET['id'] . "';</script>";
+                    .href='../src/campus.php?funcao=" . $_GET['funcao'] . "&id=" . $_GET['id'] . "';</script>";
                         die();
                     }
                 } else {
                     echo "<script>
                 alert('Algum Campo está em branco!');window.location
-                .href='../src/campus.php?tipo=" . $_GET['tipo'] . "&id=" . $_GET['id'] . "';</script>";
+                .href='../src/campus.php?funcao=" . $_GET['funcao'] . "&id=" . $_GET['id'] . "';</script>";
                     die();
                 }
             }
-        } else if ($_GET['tipo'] == "deletar") {
+        } else if ($_GET['funcao'] == "deletar") {
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
 
@@ -149,7 +149,7 @@ if (!isset($_SESSION['tipo'])) {
         }
     } else {
         echo "<script>window.location
-.href='../src/campus.php';</script>";
+.href='../src/campus.php?funcao=cadastrar';</script>";
         die();
     }
 } else {

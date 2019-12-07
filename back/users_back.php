@@ -2,8 +2,8 @@
 require_once('../config.php');
 
 
-if (isset($_GET['tipo'])) {
-    if ($_GET['tipo'] == "cadastrar") {
+if (isset($_GET['funcao'])) {
+    if ($_GET['funcao'] == "cadastrar") {
         $prontuario = strtoupper($_POST['prontuario']);
         $select = "SELECT usrId FROM tb_usuario WHERE usrLogin = :prontuario";
 
@@ -16,7 +16,7 @@ if (isset($_GET['tipo'])) {
         if ($stmt->rowcount() >= 1) {
             echo "<script>
                 alert('Já existe um usuário com este prontuário!');window.location
-                .href='../src/users.php?tipo=" . $_GET['tipo'] . "';</script>";
+                .href='../src/users.php?funcao=" . $_GET['funcao'] . "';</script>";
             die();
         }
 
@@ -29,7 +29,7 @@ if (isset($_GET['tipo'])) {
         if (isset($_POST['tipo_usuario']))
             $tipoUsuario = $_POST['tipo_usuario'];
         else {
-            echo "<script>alert('Não foi informado o tipo de usuário!');window.location.href='../src/users.php?tipo=" . $_GET['tipo'] . "';</script>";
+            echo "<script>alert('Não foi informado o tipo de usuário!');window.location.href='../src/users.php?funcao=" . $_GET['funcao'] . "';</script>";
         }
 
         if ($prontuario != "" && $nome != "" && $email != "" && $campus != "" && $senha != "" && $senha2 != "") {
@@ -54,18 +54,18 @@ if (isset($_GET['tipo'])) {
 
                 if ($stmt->rowcount() > 0) {
                     echo "<script>alert('Usuário inserido com sucesso');
-                    window.location.href='../src/users.php?tipo=" . $_GET['tipo'] . "';</script>";
+                    window.location.href='../src/users.php?funcao=" . $_GET['funcao'] . "';</script>";
                     die();
                 } else {
-                    echo "<script>alert('Houve um erro na inserção!');window.location.href='../src/users.php?tipo=" . $_GET['tipo'] . "';</script>";
+                    echo "<script>alert('Houve um erro na inserção!');window.location.href='../src/users.php?funcao=" . $_GET['funcao'] . "';</script>";
                 }
             } else {
-                echo "<script>alert('As senha são divergentes!');window.location.href='../src/users.php?tipo=" . $_GET['tipo'] . "';</script>";
+                echo "<script>alert('As senha são divergentes!');window.location.href='../src/users.php?funcao=" . $_GET['funcao'] . "';</script>";
             }
         } else {
-            echo "<script> alert('Algum Campo está em branco!');window.location.href='../src/users.php?tipo=" . $_GET['tipo'] . "';</script>";
+            echo "<script> alert('Algum Campo está em branco!');window.location.href='../src/users.php?funcao=" . $_GET['funcao'] . "';</script>";
         }
-    } else if ($_GET['tipo'] == "editar") {
+    } else if ($_GET['funcao'] == "editar") {
         if (isset($_GET['id'])) {
             $prontuario = strtoupper($_POST['prontuario']);
 
@@ -81,7 +81,7 @@ if (isset($_GET['tipo'])) {
             if ($stmt->rowcount() >= 1) {
                 echo "<script>
                 alert('Já existe um usuário com este prontuário!');window.location
-                .href='../src/users.php?tipo=" . $_GET['tipo'] . "&id=" . $_GET['id'] . "';</script>";
+                .href='../src/users.php?funcao=" . $_GET['funcao'] . "&id=" . $_GET['id'] . "';</script>";
                 die();
             }
 
@@ -95,7 +95,7 @@ if (isset($_GET['tipo'])) {
             if (isset($_POST['tipo_usuario']))
                 $tipoUsuario = $_POST['tipo_usuario'];
             else {
-                echo "<script>alert('Não foi informado o tipo de usuário!');window.location.href='../src/users.php?tipo=" . $_GET['tipo'] . "';</script>";
+                echo "<script>alert('Não foi informado o tipo de usuário!');window.location.href='../src/users.php?funcao=" . $_GET['funcao'] . "';</script>";
             }
             if ($prontuario != "" && $nome != "" && $email != "" && $campus != "" && $senha != "" && $senha2 != "") {
                 if ($senha == $senha2) {
@@ -124,23 +124,23 @@ if (isset($_GET['tipo'])) {
                     } else {
                         echo "<script>
                         alert('Houve um erro na alteração!');window.location
-                        .href='../src/users.php?tipo=" . $_GET['tipo'] . "&id=" . $_GET['id'] . "';</script>";
+                        .href='../src/users.php?funcao=" . $_GET['funcao'] . "&id=" . $_GET['id'] . "';</script>";
                         die();
                     }
                 } else {
                     echo "<script>
                 alert('As senha são divergentes!');window.location
-                .href='../src/users.php?tipo=" . $_GET['tipo'] . "&id=" . $_GET['id'] . "';</script>";
+                .href='../src/users.php?funcao=" . $_GET['funcao'] . "&id=" . $_GET['id'] . "';</script>";
                     die();
                 }
             } else {
                 echo "<script>
             alert('Algum Campo está em branco!');window.location
-            .href='../src/users.php?tipo=" . $_GET['tipo'] . "&id=" . $_GET['id'] . "';</script>";
+            .href='../src/users.php?funcao=" . $_GET['funcao'] . "&id=" . $_GET['id'] . "';</script>";
                 die();
             }
         }
-    } else if ($_GET['tipo'] == "deletar") {
+    } else if ($_GET['funcao'] == "deletar") {
         if (isset($_GET['id'])) {
             if ($_GET['id'] != 1) {
 

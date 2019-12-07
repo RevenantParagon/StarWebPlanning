@@ -36,8 +36,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js" type="text/javascript"></script>
 
 
-  <script language="JavaScript">    
-
+  <script language="JavaScript">
     /*function alteraMascara() {  
 
       var cidr=document.getElementById("cidr").value;
@@ -79,7 +78,7 @@
         if (!isset($_GET['funcao'])) {
           $_GET['funcao'] = 0;
         }
-        if ($_GET['funcao'] == 0) { ?>
+        if ($_GET['funcao'] == 'cadastrar') { ?>
           <div class="row mb-2">
             <div class="col-sm-6">
               <h1>Cadastro de Vlan</h1>
@@ -88,13 +87,13 @@
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="index.php">Início</a></li>
                 <li class="breadcrumb-item"><a href="visualiza_campus.php?">Visualizar Campus</a></li>
-                <li class="breadcrumb-item"><a href=<?php echo "visualiza_vlan?Id=" . $_GET['campus'] . ""; ?>>Visualizar Vlan</a></li>
+                <li class="breadcrumb-item"><a href=<?php echo "visualiza_vlan?campus=" . $_GET['campus'] . ""; ?>>Visualizar Vlan</a></li>
                 <li class="breadcrumb-item active">Cadastro de Vlan</li>
               </ol>
             </div>
           </div>
           <div class="card card-primary">
-            <form method="POST" action="<?php echo "../back/vlan_back.php?tipo=cadastrar&campus=" . $_GET['campus'] . ""; ?>">
+            <form method="POST" action="<?php echo "../back/vlan_back.php?funcao=cadastrar&campus=" . $_GET['campus'] . ""; ?>">
               <div class="card-body">
                 <div class="form-group">
                   <div class="row">
@@ -108,7 +107,7 @@
                     </div>
                     <div class="col-sm-1">
                       <label for="cidr">CIDR</label>
-                      <input type="text" class="form-control" id="cidr" name="cidr" maxlenght="2" placeholder="Ex.: 00" >
+                      <input type="text" class="form-control" id="cidr" name="cidr" maxlenght="2" placeholder="Ex.: 00">
                     </div>
                   </div>
                 </div>
@@ -201,7 +200,7 @@
             </div>
           </div>
           <div class="card card-primary">
-            <form method="POST" action=<?php echo "../back/vlan_back.php?tipo=editar&campus=" . $_GET['campus'] . ""; ?>>
+            <form method="POST" action=<?php echo "../back/vlan_back.php?funcao=editar&campus=" . $_GET['campus'] . ""; ?>>
               <div class="card-body">
                 <div class="form-group">
                   <div class="row">
@@ -215,11 +214,11 @@
                     </div>
                     <div class="col-sm-1">
                       <label for="cidr">CIDR</label>
-                      <input type="text" class="form-control" id="cidr" name="cidr" maxlength="2" placeholder="Ex.: 00" value="<?php echo $row['mascara'] ?>" >
+                      <input type="text" class="form-control" id="cidr" name="cidr" maxlength="2" placeholder="Ex.: 00" value="<?php echo $row['mascara'] ?>">
                     </div>
                     <div class="col-sm-5">
                       <label for="mascara">Máscara</label>
-                      <input type="text" class="form-control" id="mascara" name="mascara" maxlength="15" placeholder="Ex.: 000.000.000.000" value="<?php echo $ip->mascara() ?>" >
+                      <input type="text" class="form-control" id="mascara" name="mascara" maxlength="15" placeholder="Ex.: 000.000.000.000" value="<?php echo $ip->mascara() ?>">
                     </div>
                   </div>
                 </div>
