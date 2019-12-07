@@ -45,6 +45,22 @@ function verifica_registro()
     header("Location:./login.php");
 }
 
+function verifica_campus($id)
+{
+  $select = "select camId from tb_usuario where usrId=:id";
+
+  $stmt = $GLOBALS['pdo']->prepare($select);
+
+  $stmt->bindValue(":id", $id);
+
+  $stmt->execute();
+
+  if ($stmt->rowcount() == 1) {
+    return true;
+  }
+  return false;
+}
+
 
 function telaInicial()
 {
@@ -111,13 +127,36 @@ function telaInicial()
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./campus.php" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                    <a href="./campus.php?funcao=cadastrar" class="nav-link">
+                      <i alt="Cadastro de Campus" class="far fa-circle nav-icon"></i>
                       <p>Cadastrar</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="./visualiza_campus.php" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pesquisar</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fab fa-chromecast"></i>
+                  <p>
+                    Equipamentos
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="./equip.php?funcao=cadastrar" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Cadastrar</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="./visualiza_equip.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Pesquisar</p>
                     </a>

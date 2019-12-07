@@ -47,6 +47,10 @@
     }
   </script>
 
+  <script type="text/javascript">
+    $("#ip").mask("999.999.999.999");
+  </script>
+
 
 </head>
 
@@ -64,9 +68,9 @@
       <div class="container-fluid">
         <?php require '../back/function/campus_function.php';
         if (!isset($_GET['funcao'])) {
-          $_GET['funcao'] = 0;
+          $_GET['funcao'] = 'cadastrar';
         }
-        if ($_GET['funcao'] == 0) { ?>
+        if ($_GET['funcao'] == 'cadastrar') { ?>
           <div class="row mb-2">
             <div class="col-sm-6">
               <h1>Cadastro de Campus</h1>
@@ -79,7 +83,7 @@
             </div>
           </div>
           <div class="card card-primary">
-            <form method="POST" action="../back/campus_back.php?tipo=cadastrar" onSubmit="return verificarInformacoes();" name="frmCampus">
+            <form method="POST" action="../back/campus_back.php?funcao=cadastrar" onSubmit="return verificarInformacoes();" name="frmCampus">
               <div class="card-body">
                 <div class="form-group">
                   <label for="campus">Campus</label>
@@ -91,7 +95,7 @@
                 </div>
                 <div class="form-group">
                   <label for="ip">IP</label>
-                  <input type="text" class="form-control" id="ip" name="ip" maxlength="15" placeholder="IP">
+                  <input type="text" class="form-control" id="ip" name="ip" maxlength="15" placeholder="Ex: 000.000.000.000">
                 </div>
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary" id="cadastrar" name="cadastrar">Cadastrar</button>
@@ -114,7 +118,7 @@
             </div>
           </div>
           <div class="card card-primary">
-            <form method="POST" action=<?php echo "../back/campus_back.php?tipo=editar&id=" . $_GET['id'] . ""; ?> onSubmit="return verificarInformacoes();" name="frmCampus">
+            <form method="POST" action=<?php echo "../back/campus_back.php?funcao=editar&id=" . $_GET['id'] . ""; ?> onSubmit="return verificarInformacoes();" name="frmCampus">
               <div class="card-body">
                 <div class="form-group">
                   <label for="nome">Campus</label>

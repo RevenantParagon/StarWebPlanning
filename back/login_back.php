@@ -8,7 +8,7 @@ $senha = (isset($_POST['senha']) && $_POST['senha'] != '') ? $_POST['senha'] : '
 if (isset($_POST['esquecer_senha'])) {
   header("Location:../src/Troca_Senha.php");
 } else if ($login != '' && $senha != '') {
-  $login = $_POST['login'];
+  $login = strtoupper($_POST['login']);
   $senha = $_POST['senha'];
 
   $senha = $login . "//" . $senha;

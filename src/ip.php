@@ -34,16 +34,28 @@
 
   <script>
     function verificarInformacoes() {
-      if (document.frmCampus.campus.value == "") {
+      if (document.frmIP.nome.value == "") {
         //Swal.fire('Erro na Inserção','O prontuário está em branco!','error');
-        alert('O campus está em branco!');
-        document.frmCampus.campus.focus();
+        alert('O nome está em branco!');
+        document.frmIP.nome.focus();
         return false;
       }
-      if (document.frmCampus.sigla.value == "") {
+      if (document.frmIP.ip.value == "") {
         //Swal.fire('Erro na Inserção','O nome está em branco!','error');
-        alert('A sigla está em branco!');
-        document.frmCampus.sigla.focus();
+        alert('O IP da rede está em branco!');
+        document.frmIP.ip.focus();
+        return false;
+      }
+      if (document.frmIP.cidr.value == "") {
+        //Swal.fire('Erro na Inserção','O prontuário está em branco!','error');
+        alert('A máscara CIDR está em branco!');
+        document.frmIP.cidr.focus();
+        return false;
+      }
+      if (document.frmIP.cidr.value > 30 || document.frmIP.cidr.value < 24) {
+        //Swal.fire('Erro na Inserção','O nome está em branco!','error');
+        alert('A máscara de rede possui uma faixa de ips incorreta!');
+        document.frmIP.cidr.focus();
         return false;
       }
       return true;
@@ -95,6 +107,8 @@
   if (!isset($_SESSION["id"])) {
     echo "<script>window.location.href='./login.php';</script>";
   }
+  if ($_SESSION["tipo"] != 1 && $_GET["campus"] != $_SESSION["campus"])
+        echo "<script>window.location.href='./visualiza_ip.php?campus=".$_SESSION["campus"]."';</script>";
   telaInicial();
   ?>
 
@@ -108,8 +122,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Início</a></li>
-              <li class="breadcrumb-item"><a href="./visualiza_campus">Visualiza Campus</a></li>
+              <li class="breadcrumb-item"><a href="index.php">Início</a></li>
+              <li class="breadcrumb-item"><a href="./visualiza_campus.php">Visualiza Campus</a></li>
               <li class="breadcrumb-item active">Provedores</li>
             </ol>
           </div>
@@ -143,7 +157,7 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <form method="POST" action=<?php echo "../back/ip_back.php?tipo=editar&campus=" . $_GET['campus'] . "&id=" . $row['ID'] . ""; ?>>
+                  <form method="POST" name="frmIP" onSubmit="return verificarInformacoes();" action=<?php echo "../back/ip_back.php?funcao=editar&campus=" . $_GET['campus'] . "&id=" . $row['ID'] . ""; ?>>
                     <div class="form-group">
                       <label for="nome">Provedor</label>
                       <input type="text" id="nome" name="nome" class="form-control" value="<?php echo $row['Nome']; ?>">
@@ -169,7 +183,7 @@
                         <input type="submit" value="Salvar Provedor" class="btn btn-success">
                       </div>
                       <div class="col-2">
-                        <a href=<?php echo "../back/ip_back.php?tipo=deletar&campus=" . $_GET['campus'] . "&id=" . $row['ID'] . ""; ?> class="btn btn-secondary">Deletar</a>
+                        <a href=<?php echo "../back/ip_back.php?funcao=deletar&campus=" . $_GET['campus'] . "&id=" . $row['ID'] . ""; ?> class="btn btn-secondary">Deletar</a>
                       </div>
                     </div>
                   </form>
@@ -227,7 +241,7 @@
               </div>
             </div>
             <div class="card-body">
-              <form method="POST" action=<?php echo "../back/ip_back.php?tipo=cadastrar&campus=" . $_GET['campus'] . ""; ?>>
+              <form method="POST" name="frmIP" onSubmit="return verificarInformacoes();" action=<?php echo "../back/ip_back.php?funcao=cadastrar&campus=" . $_GET['campus'] . ""; ?>>
                 <div class="form-group">
                   <label for="inputName">Provedor</label>
                   <input type="text" id="inputName" class="form-control" name="nome">
@@ -249,10 +263,9 @@
                       <input type="text" id="cidr" class="form-control" placeholder="Ex.: 00" name="cidr">
                     </div>
                   </div>
-                  </div>
-                  <div class="col-2">
-                    <input type="submit" value="Salvar Provedor" class="btn btn-success" name="salvar" id="salvar">
-                  </div>
+                </div>
+                <div class="col-2">
+                  <input type="submit" value="Salvar Provedor" class="btn btn-success" name="salvar" id="salvar">
                 </div>
               </form>
               <div class="row">
@@ -283,14 +296,10 @@
                   <!-- /.card -->
                 </div>
               </div>
-              <div class="row">
-                <div class="col-2">
-                  <input type="submit" value="Salvar IPs" class="btn btn-success float-left">
-                </div>
-              </div>
             </div>
           </div>
         </div>
+      </div>
     </section>
 
 

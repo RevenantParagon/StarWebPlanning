@@ -9,8 +9,8 @@ if (!isset($_SESSION["id"])) {
 }
 
 if (isset($_SESSION['tipo'])) {
-    if (isset($_GET['tipo'])) {
-        if ($_GET['tipo'] == "cadastrar") {
+    if (isset($_GET['funcao'])) {
+        if ($_GET['funcao'] == "cadastrar") {
             if (isset($_GET['campus'])) {
                 $nome = $_POST['nome'];
                 $ip = $_POST['ip'];
@@ -56,7 +56,7 @@ if (isset($_SESSION['tipo'])) {
                     $ultimo = $ultimo->endereco();
 
                     $var_primeiro = explode(".", $primeiro);
-                    $var_ultimo = explode(".", $ultimo);
+                    $var_ultimo = explode(".", $ultimo+1);
 
                     $insert = "";
 
@@ -81,12 +81,13 @@ if (isset($_SESSION['tipo'])) {
                     die();
                 }
             }
-        } else if ($_GET['tipo'] == "editar") {
+        } else if ($_GET['funcao'] == "editar") {
             if (isset($_GET['id']) && isset($_GET['campus'])) {
                 $nome = $_POST['nome'];
                 $ip = $_POST['ip'];
                 $mascara = $_POST['cidr'];
                 $camId = $_GET['campus'];
+                $id = $_GET['id'];
 
                 $select = "SELECT proIP FROM tb_provedor WHERE proIP = :ip and proId<> :id";
 
@@ -162,7 +163,7 @@ if (isset($_SESSION['tipo'])) {
                 }
                 die();
             }
-        } else if ($_GET['tipo'] == "deletar") {
+        } else if ($_GET['funcao'] == "deletar") {
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
 

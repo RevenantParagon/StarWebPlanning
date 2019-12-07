@@ -30,8 +30,8 @@ function buscarUsuario($connect, $pdo)
                 <td>" . $row['Nome'] . "</td>
                 <td>" . $row['Login'] . "</td>
                 <td>" . $row['Campus'] . "</td>
-                <td align='center'><a href='../src/users.php?funcao=1&id=" . $row['ID'] . "'><i class='fas fa-edit'></i></a></td>
-                <td align='center'><a href='../back/users_back.php?tipo=deletar&id=".$row['ID'] ."'><i class='fas fa-trash-alt'></i></a></td></tr>";
+                <td align='center'><a href='../src/users.php?funcao=editar&id=" . $row['ID'] . "'><i class='fas fa-edit'></i></a></td>
+                <td align='center'><a href='../back/users_back.php?funcao=deletar&id=".$row['ID'] ."'><i class='fas fa-trash-alt'></i></a></td></tr>";
             //<td align='center'><a href='../back/users_back.php?tipo=deletar&id=". $row['ID']."'><i class='fas fa-trash-alt'></i></a></td></tr>";
             //
         }

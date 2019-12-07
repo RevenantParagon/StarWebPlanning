@@ -7,8 +7,8 @@ if (!isset($_SESSION["id"])) {
     echo "<script>window.location.href='../src/login.php';';</script>";
 }
 
-if (isset($_GET['tipo'])) {
-    if ($_GET['tipo'] == "cadastrar") {
+if (isset($_GET['funcao'])) {
+    if ($_GET['funcao'] == "cadastrar") {
         $id = $_POST['id'];
         $ip = $_POST['ip'];
         $mascara = $_POST['cidr'];
@@ -27,14 +27,14 @@ if (isset($_GET['tipo'])) {
         if ($stmt->rowcount() >= 1) {
             echo "<script>
         alert('Já existe uma vlan com este ip!');window.location
-        .href='../src/vlan.php?tipo=" . $_GET['tipo'] . "&campus=" . $_GET['campus'] . "';</script>";
+        .href='../src/vlan.php?funcao=" . $_GET['funcao'] . "&campus=" . $_GET['campus'] . "';</script>";
             die();
         }
 
         if (isset($_POST['dhcp']))
             $dhcp = $_POST['dhcp'];
         else
-            echo "<script>alert('Não foi informado se terá DHCP!');window.location.href='../src/vlan.php?tipo=" . $_GET['tipo'] . "&campus=" . $_GET['campus'] . "';</script>";
+            echo "<script>alert('Não foi informado se terá DHCP!');window.location.href='../src/vlan.php?funcao=" . $_GET['funcao'] . "&campus=" . $_GET['campus'] . "';</script>";
 
         if (isset($_POST['vpn']))
             $vpn = $_POST['vpn'];
@@ -58,21 +58,21 @@ if (isset($_GET['tipo'])) {
             $stmt->execute();
 
             if ($stmt->rowcount() > 0) {
-                echo "<script>alert('Vlan inserida com sucesso');window.location.href='../src/visualiza_vlan.php?campus=" . $_GET['campus'] . ";</script>";
+                echo "<script>alert('Vlan inserida com sucesso!');window.location.href='../src/visualiza_vlan.php?campus=" . $_GET['campus'] . "';</script>";
                 die();
             } else {
                 echo "<script>
         alert('Houve um erro na inserção!');window.location
-        .href='../src/vlan.php?tipo=" . $_GET['tipo'] . "&campus=" . $_GET['campus'] . "';</script>";
+        .href='../src/vlan.php?funcao=" . $_GET['funcao'] . "&campus=" . $_GET['campus'] . "';</script>";
                 die();
             }
         } else {
             echo "<script>
     alert('Algum Campo está em branco!');window.location
-    .href='../src/vlan.php?tipo=" . $_GET['tipo'] . "&campus=" . $_GET['campus'] . "';</script>";
+    .href='../src/vlan.php?funcao=" . $_GET['funcao'] . "&campus=" . $_GET['campus'] . "';</script>";
             die();
         }
-    } else if ($_GET['tipo'] == "editar") {
+    } else if ($_GET['funcao'] == "editar") {
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
             $ip = $_POST['ip'];
@@ -93,14 +93,14 @@ if (isset($_GET['tipo'])) {
             if ($stmt->rowcount() >= 1) {
                 echo "<script>
         alert('Já existe uma vlan com este ip!');window.location
-        .href='../src/vlan.php?tipo=" . $_GET['tipo'] . "&campus=" . $_GET['campus'] . "';</script>";
+        .href='../src/vlan.php?funcao=" . $_GET['funcao'] . "&campus=" . $_GET['campus'] . "';</script>";
                 die();
             }
 
             if (isset($_POST['dhcp']))
                 $dhcp = $_POST['dhcp'];
             else
-                echo "<script>alert('Não foi informado se terá DHCP!');window.location.href='../src/vlan.php?tipo=" . $_GET['tipo'] . "&campus=" . $_GET['campus'] . "&id=" . $_POST['id'] . "';</script>";
+                echo "<script>alert('Não foi informado se terá DHCP!');window.location.href='../src/vlan.php?funcao=" . $_GET['funcao'] . "&campus=" . $_GET['campus'] . "&id=" . $_POST['id'] . "';</script>";
 
             if (isset($_POST['vpn']))
                 $vpn = $_POST['vpn'];
@@ -129,17 +129,17 @@ if (isset($_GET['tipo'])) {
                 } else {
                     echo "<script>
         alert('Houve um erro na alteração!');window.location
-        .href='../src/vlan.php?tipo=" . $_GET['tipo'] . "&campus=" . $_GET['campus'] . "&id=" . $_POST['id'] . "';</script>";
+        .href='../src/vlan.php?funcao=" . $_GET['funcao'] . "&campus=" . $_GET['campus'] . "&id=" . $_POST['id'] . "';</script>";
                     die();
                 }
             } else {
                 echo "<script>
     alert('Algum Campo está em branco!');window.location
-    .href='../src/vlan.php?tipo=" . $_GET['tipo'] . "&campus=" . $_GET['campus'] . "&id=" . $_POST['id'] . "';</script>";
+    .href='../src/vlan.php?funcao=" . $_GET['funcao'] . "&campus=" . $_GET['campus'] . "&id=" . $_POST['id'] . "';</script>";
                 die();
             }
         }
-    } else if ($_GET['tipo'] == "deletar") {
+    } else if ($_GET['funcao'] == "deletar") {
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
 
@@ -166,6 +166,6 @@ if (isset($_GET['tipo'])) {
     }
 } else {
     echo "<script>window.location
-.href='../src/vlan.php';</script>";
+.href='../src/vlan.php?funcao=cadastrar';</script>";
     die();
 }
