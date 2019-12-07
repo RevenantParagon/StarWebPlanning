@@ -88,6 +88,8 @@ create table tb_porta
 porId int not null primary key auto_increment,
 porNumero int(2),
 porTipo int(1) default 0,
+porMac char(17),
+porIP varchar(15),
 atiId int not null,
 foreign key (atiId) references tb_ativo(atiId),
 proId int,

@@ -1,8 +1,8 @@
 <?php
-$connect = mysqli_connect('127.0.0.1', 'newuser', 'toor');
+$connect = mysqli_connect('localhost', 'root', 'toor');
 $db = mysqli_select_db($connect, 'projeto');
 
-$pdo = new PDO('mysql:host=localhost;dbname=projeto', 'newuser', 'toor');
+$pdo = new PDO('mysql:host=localhost;dbname=projeto', 'root', 'toor');
 
 function primeiroAcesso()
 {
