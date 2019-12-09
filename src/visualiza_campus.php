@@ -30,6 +30,16 @@
 
     <!-- DataTables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+        $('#link').tooltip({
+            boundary: 'window'
+        })
+    </script>
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -37,8 +47,8 @@
     session_start();
     if (!isset($_SESSION["id"])) {
         echo "<script>window.location.href='./login.php';</script>";
-    }    
-    telaInicial();?>
+    }
+    telaInicial(); ?>
 
     <div class="content-wrapper">
         <section class="content-header">
@@ -74,9 +84,9 @@
                                         <th width="5%">Sigla</th>
                                         <th width="5%"></th>
                                         <?php
-                                        if($_SESSION['tipo'] == 1){
-                                        ?>
-                                        <th width="5%"></th>
+                                        if ($_SESSION['tipo'] == 1) {
+                                            ?>
+                                            <th width="5%"></th>
                                         <?php
                                         }
                                         ?>
@@ -94,9 +104,9 @@
                                         <th width="5%">Sigla</th>
                                         <th width="5%"></th>
                                         <?php
-                                        if($_SESSION['tipo'] == 1){
-                                        ?>
-                                        <th width="5%"></th>
+                                        if ($_SESSION['tipo'] == 1) {
+                                            ?>
+                                            <th width="5%"></th>
                                         <?php
                                         }
                                         ?>

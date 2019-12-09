@@ -7,13 +7,13 @@ function criaCombobox($connect, $equip)
 
     if (mysqli_num_rows($q) > 0) {
         while ($row = mysqli_fetch_array($q)) {
-            if(isset($equip)){
-                if($equip == $row['equID'])
-                    echo "<option value=".$row['equID']." selected>".$row['equMarca']."-".$row['equModelo']."</option>";
+            if (isset($equip)) {
+                if ($equip == $row['equID'])
+                    echo "<option value=" . $row['equID'] . " selected>" . $row['equMarca'] . "-" . $row['equModelo'] . "</option>";
                 else
-                    echo "<option value=".$row['equID'].">".$row['equMarca']."-".$row['equModelo']."</option>";
-            }else{
-                echo "<option value=".$row['equID'].">".$row['equMarca']."-".$row['equModelo']."</option>";
+                    echo "<option value=" . $row['equID'] . ">" . $row['equMarca'] . "-" . $row['equModelo'] . "</option>";
+            } else {
+                echo "<option value=" . $row['equID'] . ">" . $row['equMarca'] . "-" . $row['equModelo'] . "</option>";
             }
         }
     }
@@ -28,9 +28,9 @@ function voltarAtivo($pdo, $id)
     $stmt->bindValue(":id", $id);
 
     $stmt->execute();
-    
+
     if ($stmt->rowcount() == 1) {
-        return $row =$stmt->fetch();
+        return $row = $stmt->fetch();
     }
 }
 
@@ -43,11 +43,27 @@ function buscaAtivos($pdo, $campus)
     $stmt->bindValue(":id", $campus);
 
     $stmt->execute();
-    
+
     if ($stmt->rowcount() == 1) {
-        return $row =$stmt->fetch();
+        return $row = $stmt->fetch();
     }
 }
+
+function retornaVlan($pdo, $porta)
+{
+    $select = "select group_concat(pv.vlanId) 'id', v.vlanCor 'cor' from tb_porta_vlan pv, tb_vlan v where v.vlanId = pv.vlanId and pv.porId=:id group by pv.porId";
+
+    $stmt = $pdo->prepare($select);
+
+    $stmt->bindValue(":id", $porta);
+
+    $stmt->execute();
+
+    if ($stmt->rowcount() == 1) {
+        return $row = $stmt->fetch();
+    }
+}
+
 
 function criaComboboxAtivos($connect, $ativo)
 {
@@ -55,13 +71,13 @@ function criaComboboxAtivos($connect, $ativo)
 
     if (mysqli_num_rows($q) > 0) {
         while ($row = mysqli_fetch_array($q)) {
-            if(isset($ativo)){
-                if($ativo == $row['atiId'])
-                    echo "<option value=".$row['atiId']." selected>".$row['atiNome']."</option>";
+            if (isset($ativo)) {
+                if ($ativo == $row['atiId'])
+                    echo "<option value=" . $row['atiId'] . " selected>" . $row['atiNome'] . "</option>";
                 else
-                    echo "<option value=".$row['atiId'].">".$row['atiNome']."</option>";
-            }else{
-                echo "<option value=".$row['atiId'].">".$row['atiNome']."</option>";
+                    echo "<option value=" . $row['atiId'] . ">" . $row['atiNome'] . "</option>";
+            } else {
+                echo "<option value=" . $row['atiId'] . ">" . $row['atiNome'] . "</option>";
             }
         }
     }
@@ -73,35 +89,32 @@ function criaComboboxProvedor($connect, $ip)
 
     if (mysqli_num_rows($q) > 0) {
         while ($row = mysqli_fetch_array($q)) {
-            if(isset($ip)){
-                if($ip == $row['proId'])
-                    echo "<option value=".$row['proId']." selected>".$row['proNome']."</option>";
+            if (isset($ip)) {
+                if ($ip == $row['proId'])
+                    echo "<option value=" . $row['proId'] . " selected>" . $row['proNome'] . "</option>";
                 else
-                    echo "<option value=".$row['proId'].">".$row['proNome']."</option>";
-            }else{
-                echo "<option value=".$row['proId'].">".$row['proNome']."</option>";
+                    echo "<option value=" . $row['proId'] . ">" . $row['proNome'] . "</option>";
+            } else {
+                echo "<option value=" . $row['proId'] . ">" . $row['proNome'] . "</option>";
             }
         }
     }
 }
 
-function verificaVlan($pdo, $vlan, $campus)
+function criaVlan($pdo, $campus)
 {
-    $verifica = "select vlanId from tb_vlan where camId=:campus and vlanId=:vlan";
+    $verifica = "select vlanId from tb_vlan where camId=:campus";
 
     $stmt = $pdo->prepare($verifica);
 
-    $stmt->bindValue(":vlan", $vlan);
     $stmt->bindValue(":campus", $campus);
 
     $stmt->execute();
-    
-    
 
-    if ($stmt->rowcount() >= 1) {
-        return 1;
+    if ($stmt->rowcount() > 0) {
+        $return = $stmt->fetchAll();
+        foreach ($return as &$row) {
+            echo "<option value=" . $row['vlanId'] . ">" . $row['vlanId'] ."</option>";
+        }
     }
-    return 0;
 }
-
-?>

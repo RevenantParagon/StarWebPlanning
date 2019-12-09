@@ -9,7 +9,7 @@ if (!isset($_SESSION['tipo'])) {
     if (isset($_GET['funcao'])) {
         if ($_GET['funcao'] == "cadastrar") {
             $local = $_POST['local'];
-            $ip = $_POST['ipPorta'];
+            $ip = $_POST['ip'];
             $nome = $_POST['nome'];
             $usuario = $_POST['usuario'];
             $senha = $_POST['senha'];
@@ -32,9 +32,8 @@ if (!isset($_SESSION['tipo'])) {
                 $stmt->execute();
 
                 if ($stmt->rowcount() > 0) {
-                    /*$p = mysqli_query($connect, "SELECT max(atiId) FROM tb_ativo");
+                    $p = mysqli_query($connect, "SELECT max(atiId) 'atiId' FROM tb_ativo");
                     $atiId = mysqli_fetch_array($p);
-
                     $q = mysqli_query($connect, "SELECT equQtdePorta 'qtde' FROM tb_equipamento WHERE equId = '$equip'");
                     $qtdePorta = mysqli_fetch_array($q);
                     for ($i = 0; $i < $qtdePorta['qtde']; $i++) {
@@ -44,10 +43,10 @@ if (!isset($_SESSION['tipo'])) {
                         $stmt = $pdo->prepare($insert);
 
                         $stmt->bindValue(":numero", $i);
-                        $stmt->bindValue(":atiId", $atiId);
+                        $stmt->bindValue(":atiId", $atiId['atiId']);
 
                         $stmt->execute();
-                    }*/
+                    }
                     echo "<script>alert('Ativo inserido com sucesso');window.location
             .href='../src/ativo.php?funcao=" . $_GET['funcao'] . "&campus=" . $_GET['campus'] . "';</script>";
                     die();

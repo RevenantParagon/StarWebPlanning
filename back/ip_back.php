@@ -56,7 +56,7 @@ if (isset($_SESSION['tipo'])) {
                     $ultimo = $ultimo->endereco();
 
                     $var_primeiro = explode(".", $primeiro);
-                    $var_ultimo = explode(".", $ultimo+1);
+                    $var_ultimo = explode(".", $ultimo);
 
                     $insert = "";
 

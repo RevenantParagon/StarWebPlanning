@@ -78,9 +78,9 @@ atiNome varchar(50) not null,
 atiUsuario varchar(30) not null,
 atiSenha varchar(10) not null,
 equId int not null,
-foreign key (equId) references tb_equipamento(equId),
+foreign key (equId) references tb_equipamento(equId) on update cascade on delete cascade,
 camId int not null,
-foreign key (camId) references tb_campus(camId)
+foreign key (camId) references tb_campus(camId) on update cascade on delete cascade
  ) engine = InnoDB; 
  
 create table tb_porta
@@ -90,27 +90,27 @@ porNumero int(2),
 porTipo int(1) default 0,
 porMac char(17),
 porIP varchar(15),
-atiId int not null,
-foreign key (atiId) references tb_ativo(atiId),
+atiId int,
+foreign key (atiId) references tb_ativo(atiId)  on update cascade on delete cascade,
 proId int,
-foreign key (proId) references tb_provedor(proId),
+foreign key (proId) references tb_provedor(proId) on update set null on delete set null,
 porObs varchar(50)
 )engine = InnoDB;
 
 create table tb_porta_porta
 (
 porId int not null,
-foreign key (porId) references tb_porta(porId),
+foreign key (porId) references tb_porta(porId) on update cascade on delete cascade,
 porIdVinculada int not null,
-foreign key (porIdVinculada) references tb_porta(porId)
+foreign key (porIdVinculada) references tb_porta(porId) on update cascade on delete cascade
 ) engine = InnoDB;
  
 create table tb_porta_vlan
 (
 porId int not null,
-foreign key (porId) references tb_porta(porId),
+foreign key (porId) references tb_porta(porId) on update cascade on delete cascade,
 vlanId int not null,
-foreign key (vlanId) references tb_vlan(vlanId)
+foreign key (vlanId) references tb_vlan(vlanId) on update cascade on delete cascade
 )engine = InnoDB; 
 
 insert into tb_campus values(1,'ARQ','Araraquara','');
@@ -150,4 +150,4 @@ insert into tb_campus values(34,'SZN','Suzano','');
 insert into tb_campus values(35,'TUP','Tupã','');
 insert into tb_campus values(36,'VTP','Votuporanga','');
 
-INSERT INTO `projeto`.`tb_usuario` (`usrId`, `usrLogin`, `usrSenha`, `usrNome`, `usrEmail`, `camId`, `usrTipo`) VALUES ('1', 'BA123456', '61f5be3abcd59d2d49ef1ab47bad53e227d594a60befbe6edcd260e16ae70111', 'Tiago', 'tiago@ifsp.edu.br', '3', '1');
+INSERT INTO `projeto`.`tb_usuario` (`usrId`, `usrLogin`, `usrSenha`, `usrNome`, `usrEmail`, `camId`, `usrTipo`) VALUES ('1', 'BA123456', '61f5be3abcd59d2d49ef1ab47bad53e227d594a60befbe6edcd260e16ae70111', 'Jovander', 'jovander@ifsp.edu.br', '3', '1');

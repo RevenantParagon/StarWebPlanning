@@ -108,7 +108,7 @@
     echo "<script>window.location.href='./login.php';</script>";
   }
   if ($_SESSION["tipo"] != 1 && $_GET["campus"] != $_SESSION["campus"])
-        echo "<script>window.location.href='./visualiza_ip.php?campus=".$_SESSION["campus"]."';</script>";
+        echo "<script>window.location.href='./ip.php?campus=".$_SESSION["campus"]."';</script>";
   telaInicial();
   ?>
 

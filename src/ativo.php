@@ -34,6 +34,17 @@
 
 
     <script language="JavaScript">
+        function verificarCheckBox() {
+            var check = document.getElementsByID("check");
+            alert('Teste');
+            for (var i = 0; i < check.length; i++) {
+                if (check[i].checked == true) {
+                    document.getElementsByName("senha").style.display = 'text';
+                } else {
+                    document.getElementsByName("senha").style.display = 'password';
+                }
+            }
+        }
         /*function alteraMascara() {  
 
       var cidr=document.getElementById("cidr").value;
@@ -66,6 +77,8 @@
     if (!isset($_SESSION["id"])) {
         echo "<script>window.location.href='./login.php';</script>";
     }
+    if ($_SESSION["tipo"] != 1 && $_GET["campus"] != $_SESSION["campus"])
+        echo "<script>window.location.href='./ativo.php?funcao=cadastrar&campus=" . $_SESSION["campus"] . "';</script>";
     telaInicial();
     ?>
     <div class="content-wrapper">
@@ -121,14 +134,22 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <label for="usuario">Usuário</label>
+                                            <label>Usuário</label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Senha</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
                                             <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuário">
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="senha">Senha</label>
-                                            <input type="text" class="form-control" id="senha" name="senha" placeholder="Senha">
+                                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
                                         </div>
+
                                     </div>
+
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary" id="salvar" name="salvar">Salvar</button>
@@ -152,7 +173,7 @@
                         </div>
                     </div>
                     <div class="card card-primary">
-                        <form method="POST" action="<?php echo "../back/ativo_back.php?funcao=editar&campus=" . $_GET['campus'] . "&id=".$_GET['id']; ?>">
+                        <form method="POST" action="<?php echo "../back/ativo_back.php?funcao=editar&campus=" . $_GET['campus'] . "&id=" . $_GET['id']; ?>">
                             <div class="card-body">
                                 <div class="form-group">
                                     <div class="row">
@@ -188,7 +209,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="senha">Senha</label>
-                                            <input type="text" class="form-control" id="senha" name="senha" placeholder="Senha" value="<?php echo $row['senha'] ?>">
+                                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" value="<?php echo $row['senha'] ?>">
                                         </div>
                                     </div>
                                 </div>

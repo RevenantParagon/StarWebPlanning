@@ -69,6 +69,8 @@
   if (!isset($_SESSION["id"])) {
     echo "<script>window.location.href='./login.php';</script>";
   }
+  if ($_SESSION["tipo"] != 1 && $_GET["campus"] != $_SESSION["campus"])
+        echo "<script>window.location.href='./vlan.php?funcao=cadastrar&campus=" . $_SESSION["campus"] . "';</script>";
   telaInicial();
   ?>
   <div class="content-wrapper">
